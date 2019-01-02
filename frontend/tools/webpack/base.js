@@ -44,7 +44,7 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      name: 'vendor.bundle',
+      name: 'vendor',
       chunks: 'initial',
     },
   },
