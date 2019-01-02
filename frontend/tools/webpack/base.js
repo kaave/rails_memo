@@ -1,5 +1,6 @@
 const globby = require('globby');
 const path = require('path');
+const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const packs = path.join(process.cwd(), 'frontend', 'scripts');
@@ -29,10 +30,22 @@ module.exports = {
     extensions: ['json', '.tsx', '.ts', '.css', '.js'],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+    }),
     new ManifestPlugin({
       publicPath,
       fileName: 'manifest.json',
       writeToFileEmit: true,
     }),
   ],
+  module: {
+    rules: [],
+  },
+  optimization: {
+    splitChunks: {
+      name: 'vendor.bundle',
+      chunks: 'initial',
+    },
+  },
 };
