@@ -261,3 +261,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/osx,linux,windows,node,ruby,rails
+
+### MANUAL ###
+# editor config: vscode
+/.vscode

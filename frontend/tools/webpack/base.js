@@ -9,14 +9,14 @@ const entry = targets.reduce((tmp, target) => {
   const bundle = path.relative(packs, target);
   const ext = path.extname(bundle);
   const key = bundle.replace(ext, '');
-  tmp[key] = `./${bundle}`
+  tmp[key] = `./${bundle}`;
 
   return tmp;
 }, {});
 const publicPath = '/packs/';
 
 module.exports = {
-  entry
+  entry,
   context: packs,
   output: {
     publicPath,
