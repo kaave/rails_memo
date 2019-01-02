@@ -29,5 +29,38 @@ module Rails2019
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Timezone
+    config.time_zone = 'Tokyo'
+    # locales
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    config.i18n.default_locale = :ja
+
+    # generator
+    config.generators do |g|
+      # no create helper
+      g.helper false
+      # no create JavaScript
+      g.javascripts false
+      # no create assets
+      g.assets false
+
+      # test settings: use RSpec
+      g.test_framework :rspec,
+        # create fixture
+        fixtures: true,
+        # no create view spec
+        view_specs: false,
+        # no create helper spec
+        helper_specs: false,
+        # no create router spec
+        routing_specs: false,
+        # create controller spec
+        controller_specs: true,
+        # no create request spec
+        request_specs: false
+      # use factories
+      g.fixture_replacement :factory_girl, dir: 'spec/factories'
+    end
   end
 end
