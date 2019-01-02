@@ -35,9 +35,6 @@ gem 'draper'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-# Use react-rails for SSR
-gem 'react-rails'
-
 group :development, :test, :staging do
   gem 'rubocop'
   gem 'rubocop-airbnb'
