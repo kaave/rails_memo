@@ -32,9 +32,6 @@ gem 'active_hash'
 gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
 gem 'draper'
 
-# load .env from project root
-gem 'dotenv-rails'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
@@ -57,6 +54,9 @@ group :development, :test do
 
   # check n+1 problems
   gem 'bullet'
+
+  # load .env from project root
+  gem 'dotenv-rails'
 end
 
 group :development do

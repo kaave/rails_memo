@@ -45,8 +45,7 @@ module WebpackBundleHelper
     end
 
     def dev_server_host
-      # "http://#{Rails.application.config.dev_server_host}"
-      "http://localhost:13000"
+      "http://#{Rails.application.config.dev_server_host}"
     end
 
     def pro_manifest

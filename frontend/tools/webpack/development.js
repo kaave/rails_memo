@@ -4,6 +4,13 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const sassPackageImporter = require('node-sass-package-importer');
 
+require('dotenv').config();
+
+const ports = {
+  rails: parseInt(process.env.PORT, 10) || 13000,
+  wds: parseInt(process.env.PORT_WDS, 10) || 3000,
+};
+
 const {
   entry,
   context,
@@ -67,7 +74,7 @@ module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   entry: Object.entries(entry).reduce((tmp, [key, value]) => {
-    tmp[key] = [`webpack-dev-server/client?http://localhost:13000`, 'webpack/hot/only-dev-server', value];
+    tmp[key] = [`webpack-dev-server/client?http://localhost:${ports.wds}`, 'webpack/hot/only-dev-server', value];
     return tmp;
   }, {}),
   plugins: [
@@ -82,10 +89,10 @@ module.exports = {
   },
   devServer: {
     publicPath: output.publicPath,
-    port: 13000,
+    port: ports.wds,
     proxy: {
       '/': {
-        target: 'http://localhost:3000',
+        target: `http://localhost:${ports.rails}`,
         bypass(req, res, proxyOptions) {
           const isPacksRequest = /^\/packs\//.test(req.url);
           if (isPacksRequest) {

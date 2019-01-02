@@ -67,6 +67,8 @@ Rails.application.configure do
   # kill assets.digest
   config.assets.digest = false
 
+  config.dev_server_host = "localhost:#{ENV['PORT_WDS']}"
+
   # Bullet settings
   config.after_initialize do
     # enabled bullet
