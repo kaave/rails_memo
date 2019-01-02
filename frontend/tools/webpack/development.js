@@ -1,7 +1,18 @@
+const path = require('path');
 const webpack = require('webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-const base = require('./base');
+const {
+  entry,
+  context,
+  output,
+  resolve,
+  plugins,
+  module: { rules },
+} = require('./base');
+
+const tsconfigPath = path.join(process.cwd(), 'tsconfig.json');
 
 const appendRules = [
   {
@@ -11,6 +22,7 @@ const appendRules = [
       {
         loader: 'ts-loader',
         options: {
+          configFile: tsconfigPath,
           transpileOnly: true,
         },
       },
@@ -20,19 +32,27 @@ const appendRules = [
 ];
 
 module.exports = {
-  ...base,
+  context,
+  output,
+  resolve: { ...resolve, plugins: [new TsconfigPathsPlugin({ configFile: tsconfigPath })] },
   mode: 'development',
   devtool: 'inline-source-map',
-  entry: Object.values(base.entry).reduce((tmp, { key, value }) => {
+  entry: Object.entries(entry).reduce((tmp, [key, value]) => {
     tmp[key] = [`webpack-dev-server/client?http://localhost:13000`, 'webpack/hot/only-dev-server', value];
     return tmp;
   }, {}),
-  plugins: [...base.plugins, new webpack.NamedModulesPlugin(), new ForkTsCheckerWebpackPlugin()],
+  plugins: [
+    ...plugins,
+    new webpack.NamedModulesPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      tsconfig: tsconfigPath,
+    }),
+  ],
   module: {
-    rules: [...base.module.rules ...appendRules],
+    rules: [...rules, ...appendRules],
   },
   devServer: {
-    publicPath: base.output.publicPath,
+    publicPath: output.publicPath,
     port: 13000,
   },
 };
