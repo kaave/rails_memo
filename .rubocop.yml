@@ -1,0 +1,8 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'lib/tasks/*'
+    - 'vendor/**/*'
