@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --history-api-fallback --progress --color --config frontend/tools/webpack/development.js",
+    "start": "run-p start:*",
+    "start:frontend": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --history-api-fallback --progress --color --config frontend/tools/webpack/development.js",
+    "start:rails": "cross-env RAILS_ENV=development ./bin/rails server",
     "prebuild": "run-s clean",
     "build": "cross-env NODE_ENV=production webpack --progress --config frontend/tools/webpack/production.js",
     "clean": "rimraf public/packs",
