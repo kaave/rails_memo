@@ -7,19 +7,19 @@
     ],
     "linterOptions": {
         "exclude": [
-          "app/**",
-          "bin/**",
-          "config/**",
-          "coverage/**",
-          "db/**",
-          "lib/**",
-          "log/**",
-          "node_modules/**",
-          "public/**",
-          "spec/**",
-          "storage/**",
-          "tmp/**",
-          "vendor/**",
+            "app/**",
+            "bin/**",
+            "config/**",
+            "coverage/**",
+            "db/**",
+            "lib/**",
+            "log/**",
+            "node_modules/**",
+            "public/**",
+            "spec/**",
+            "storage/**",
+            "tmp/**",
+            "vendor/**"
         ]
     },
     "rules": {

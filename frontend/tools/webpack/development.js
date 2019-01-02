@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const sassPackageImporter = require('node-sass-package-importer');
 
 const {
   entry,
@@ -29,6 +30,34 @@ const appendRules = [
     ],
   },
   { test: /\.js$/, use: 'source-map-loader', enforce: 'pre' },
+  {
+    test: /\.scss$/,
+    use: [
+      'style-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1,
+          localIdentName: '[name]__[local]___[hash:base64:5]',
+          modules: true,
+          sourceMap: true,
+        },
+      },
+      {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true,
+        },
+      },
+      {
+        loader: 'sass-loader',
+        options: {
+          importer: sassPackageImporter({ extensions: ['.scss', '.css'] }),
+          sourceMap: true,
+        },
+      },
+    ],
+  },
 ];
 
 module.exports = {

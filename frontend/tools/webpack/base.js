@@ -27,7 +27,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['json', '.tsx', '.ts', '.css', '.js'],
+    extensions: ['json', '.tsx', '.ts', '.scss', '.js'],
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -40,7 +40,16 @@ module.exports = {
     }),
   ],
   module: {
-    rules: [],
+    rules: [
+      {
+        test: /\.(txt|md|frag|vert|glsl)$/,
+        use: 'raw-loader',
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
+      },
+    ],
   },
   optimization: {
     splitChunks: {

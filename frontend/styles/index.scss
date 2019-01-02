@@ -1,0 +1,9 @@
+@import "~normalize.css";
+
+$text-color: #f0f0f0;
+$bg-color: #111;
+
+html {
+    background: $bg-color;
+    color: $text-color;
+}
