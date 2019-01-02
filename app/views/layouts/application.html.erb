@@ -4,9 +4,11 @@
     <title>Rails2019</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_bundle_tag 'index' unless Rails.env.development? %>
   </head>
 
   <body>
     <%= yield %>
+    <%= javascript_bundle_tag 'index' %>
   </body>
 </html>

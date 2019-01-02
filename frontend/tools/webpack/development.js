@@ -83,5 +83,17 @@ module.exports = {
   devServer: {
     publicPath: output.publicPath,
     port: 13000,
+    proxy: {
+      '/': {
+        target: 'http://localhost:3000',
+        bypass(req, res, proxyOptions) {
+          const isPacksRequest = /^\/packs\//.test(req.url);
+          if (isPacksRequest) {
+            console.log('Skipping proxy for packs request.');
+            return req.url;
+          }
+        },
+      },
+    },
   },
 };
